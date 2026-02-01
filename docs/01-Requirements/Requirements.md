@@ -12,4 +12,4 @@ The following sections document the requirements this module must fulfill to ...
 | Wireless Communication | Able to send or receive a Wi-Fi data | Send and receive Wi-Fi Data to MQTT | No |
 | DC motors | enough torque to move the robot | move the robot effortlessly | No | 
 | Hall effect| measure motor movement on motors | measure accurately|  No |
-| battery| supply power to motors and microcontroller | supply ENOUGH power and long lasting | No |
+| battery| supply power to motors and microcontroller | supply ENOUGH power to haul the weight of the robot and long-lasting | No |
