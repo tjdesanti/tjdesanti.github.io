@@ -6,20 +6,12 @@ tags:
 ---
 
 ## Overview
-This needs to be updated with a brief purpose for having the block diagram.
-Things to mention are:
-* power levels
-* sensor
-* Actuator
-* team connections
-* Power source
-* ...
-
-To get some initial formatting help, one can view ["here"](https://embedded-systems-design.github.io/EGR304DataSheetTemplate/Appendix/basic-markdown-examples/) some basic techniques.
+This system uses a PIC18F47Q10 microcontroller and an ESP32 Wi-Fi module to control and monitor a motor over a wireless network. The PIC controls the motor driver to set the motor’s direction, turns an LED on or off to indicate the system is working, and reads a hall-effect sensor to measure the motor's rotation. The ESP32 communicates with the PIC and connects to an MQTT server over Wi-Fi, sending motor status and sensor data and receiving control commands from other devices. This setup allows the motor to be controlled remotely while providing feedback on its operation.
 
 
-## Example Block Diagram 
-Showing an example of how to import a screenshot of the block diagram created outside of git and brought into a page.
+## Block Diagram 
 
-![Indivial Block diagram ](<img width="863" height="801" alt="image" src="https://github.com/user-attachments/assets/e4650eec-58f4-40b2-a477-2463a6df8cc3" />)
+
+<img width="863" height="801" alt="image" src="https://github.com/user-attachments/assets/30b06a07-6d16-4bb8-8f87-9b6bf0ff07b3" />
+
 
