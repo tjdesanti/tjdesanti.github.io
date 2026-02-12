@@ -4,31 +4,24 @@ title: Module's Selected Major Components
 
 ## Module's Selected Major Components
 
-The following sections are the selected major components necessary for  .....
-
->**For each of the following sections, use <ins>one of the two styles</ins> given near the end. *REMOVE THIS NOTE***
-
-### Power Management
-
-(**remove this note/placeholder**: this is where your 3.3 volt switching regulator, any other needed power regulator, and power source {if applicable} **THAT WERE SELECTED**)
-
-For more details, review the ["Appendix - Component Selection Process - Power Mangement"](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/Appendix/01-Componet-Selection/Component-Selection-Process/#power-management) selection.
-
-### Sensor
-
-(**remove this note/placeholder**: if applicable, this is where your  **SELECTED** sensor is shown. Otherwise, remove this section.)
-
-For more details, review the ["Appendix - Component Selection Process - Sensor"](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/Appendix/01-Componet-Selection/Component-Selection-Process/#sensor) selection.
-
-### Actuator
-
-(**remove this note/placeholder**: if applicable, this is where your **Selected** the actuator items go, which includes both the driver and motor. Otherwise, remove this section.)
-
-For more details, review the ["Appendix - Component Selection Process - Actuator"](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/Appendix/01-Componet-Selection/Component-Selection-Process/#actuator) selection.
-
------------
+The following sections are the selected major components of the drive train for the scavenger tank.
 
 
+**Mircocontroller**
+1. PIC18F57Q43
+
+   <img width="256" height="228" alt="image" src="https://github.com/user-attachments/assets/b9444a11-af70-4757-ae57-3bd7d040e876" />
+ * $1.56/each
+ * [link to product](https://www.microchip.com/en-us/product/PIC18F57Q43#product-purchase)
+
+
+    | Pros                                      | Cons                                                             |
+    | ----------------------------------------- | ---------------------------------------------------------------- |
+    | Inexpensive                               | might have to create a circuit with it to make it easier to program |
+    | Has many pins to use                      | programing maybe difficult                                       |
+    | Has EDA/CAD file                          |                                                                  |
+   
+**Rationale:** The pic is a familiar component used in a previous class. The only issue is might have to recreate the board that came with the microcontroller in order to use it the same way as before. But it will be capable of working with the esp to send signals back and forth.
 
 **Motor Driver**
 
@@ -120,6 +113,7 @@ with both stepper and non-stepper DC motors. It seems like a versatile driver co
     | steady speed                               | need custom footprint                                           |
     | simple 2-wire connection                  | may not be suitable for a drive train                            |
 
+**Rationale:** The GEARMOTOR 220 RPM 12V MICR METAL seems to be the best fit for the drive train system. Not only does it use 12V, but it has a balance of torque and speed that should be able to haul the weight of the rest of the scavenger tank.
 
 # Hall Effect Sensors
 
