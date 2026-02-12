@@ -91,11 +91,10 @@ with both stepper and non-stepper DC motors. It seems like a versatile driver co
 
 1. STANDARD MOTOR 6600 RPM 12V
 
-   <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a" />
+<img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a" />
 
    * $2.75/each
    * [link to product](https://www.digikey.com/en/products/detail/sparkfun-electronics/11696/6163657)
-
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | cheap                                     | Low torque, gear ratio may be needed                             |
