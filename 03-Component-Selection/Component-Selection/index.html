@@ -631,9 +631,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#style-1" class="md-nav__link">
+  <a href="#table-2-hall-effect-sensor" class="md-nav__link">
     <span class="md-ellipsis">
-      Style 1
+      Table 2: Hall Effect Sensor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-12v-2a-ac-dc-wall-power-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table 3: 12V 2A AC-DC Wall Power Supply
     </span>
   </a>
   
@@ -870,9 +879,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#style-1" class="md-nav__link">
+  <a href="#table-2-hall-effect-sensor" class="md-nav__link">
     <span class="md-ellipsis">
-      Style 1
+      Table 2: Hall Effect Sensor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-12v-2a-ac-dc-wall-power-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table 3: 12V 2A AC-DC Wall Power Supply
     </span>
   </a>
   
@@ -923,14 +941,6 @@
 <p>(<strong>remove this note/placeholder</strong>: if applicable, this is where your <strong>Selected</strong> the actuator items go, which includes both the driver and motor. Otherwise, remove this section.)</p>
 <p>For more details, review the <a href="https://embedded-systems-design.github.io/EGR314DataSheetTemplate/Appendix/01-Componet-Selection/Component-Selection-Process/#actuator">"Appendix - Component Selection Process - Actuator"</a> selection.</p>
 <hr>
-<blockquote>
-<p>Remove the following before submitting! Use them to present the selected components</p>
-</blockquote>
-<h3 id="style-1">Style 1</h3>
-<blockquote>
-<p>This is the example found in the assignment, uses more html</p>
-</blockquote>
-<p><em>Table 1: Example component selection</em></p>
 <p><strong>Motor Driver</strong></p>
 <ol>
 <li>IC MTR DRV BIPLR 2.5-5.5V TSOT23</li>
@@ -1055,6 +1065,61 @@ with both stepper and non-stepper DC motors. It seems like a versatile driver co
     | steady speed                               | need custom footprint                                           |
     | simple 2-wire connection                  | may not be suitable for a drive train                            |</li>
 </ul>
+<h3 id="table-2-hall-effect-sensor">Table 2: Hall Effect Sensor</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/d7a010bf-4280-4f01-a04b-e3f10b7f98b4" data-desc-position="bottom"><img alt="Hall Effect Sensor 1" src="https://github.com/user-attachments/assets/d7a010bf-4280-4f01-a04b-e3f10b7f98b4"></a>  <br> Choice 1  <br> AS5600-ASOM  <br> ams-OSRAM USA INC.  <br>  $3.17/each  <br> <a href="https://www.digikey.com/en/products/detail/ams-osram/AS5600-ASOM/4914332">Link</a> <br> <a href="https://www.digikey.com/html/datasheets/productinfo/1647438/0/0/1/as5600-datasheet.pdf">Datasheet</a></td>
+<td>Have worked with this before <br> More output modes</td>
+<td>Hard to work with  <br> Has more pins, harder to wire  <br> Most Expensive</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/28da5486-a231-4f36-b95a-c55579f82a12" data-desc-position="bottom"><img alt="Hall Effect Sensor 2" src="https://github.com/user-attachments/assets/28da5486-a231-4f36-b95a-c55579f82a12"></a>   <br>  Choice 2  <br> TMAG5273 Low-Power Linear 3D Hall-Effect Sensor  <br> Texas Instruments  <br> $1.24/each  <br>  <a href="https://www.mouser.com/ProductDetail/Texas-Instruments/TMAG5273D1QDBVR?q=IKkN%2F947nDf5iy%252BbYuEbTg%3D%3D">Link</a> <br> <a href="https://www.ti.com/lit/ds/symlink/tmag5273.pdf?ts=1770822612850&amp;ref_url=https%253A%252F%252Fapp.ultralibrarian.com%252F">Datasheet</a></td>
+<td>Has fewer pins, so it’s easier to wire  <br> Inexpensive  <br> Easily integrates with PIC MCU  <br> Very low Power</td>
+<td>Magnetic Sensitivity  <br> Less output modes</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/e3df8eee-b0c7-499a-b3e3-261530e28e23" data-desc-position="bottom"><img alt="Hall Effect Sensor 3" src="https://github.com/user-attachments/assets/e3df8eee-b0c7-499a-b3e3-261530e28e23"></a>     <br> Choice 3  <br> TLE5009  <br> Infineon Technologies  <br> $2.73/each  <br> <a href="https://www.mouser.com/ProductDetail/Infineon-Technologies/TLE5009-E20102qs=%252BwNEOWq1JvGhyLjFiYi7Q%3D%3D">link</a> <br> <a href="https://www.mouser.com/datasheet/3/70/1Infineon-TLE5009_EXXXX-DataSheet-v01_01-EN.pdf">datasheet</a></td>
+<td>Low output current  <br> Uses 3.3V and 5V</td>
+<td>Does not use I2C  <br> Has more pins, harder to wire   <br> More Expensive   <br> Has no address</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rationale:</strong> Choice 2. This Hall Effect sensor is the best option because the wiring is easy, it integrates well with the PIC, and it requires very low power. Compared to choice 3, which lacks I2C compatibility, and choice 1, which is very hard to work with.</p>
+<h3 id="table-3-12v-2a-ac-dc-wall-power-supply">Table 3: 12V 2A AC-DC Wall Power Supply</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/851bcc5a-d03c-4438-b80b-d4cf19db04fa" data-desc-position="bottom"><img alt="12V Wall Power 1" src="https://github.com/user-attachments/assets/851bcc5a-d03c-4438-b80b-d4cf19db04fa"></a>     <br>  Choice 1  <br> L6R24-120  <br> Tri-Mag, LLC   <br> $10.38/each   <br> <a href="https://www.digikey.com/en/products/detail/tri-mag-llc/L6R24-120/7682639">Link</a> <br> <a href="https://www.tri-mag.com/wp-content/uploads/2021/05/L6R24-L6R30_Series_2021-02.pdf">Datasheet</a></td>
+<td>Inexpensive  <br> Has less noise  <br> Average Efficiency</td>
+<td>The cord is short</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/969ed2ea-2765-4eba-a302-e7469fd92a16" data-desc-position="bottom"><img alt="12V Wall Power 2" src="https://github.com/user-attachments/assets/969ed2ea-2765-4eba-a302-e7469fd92a16"></a>    <br>  Choice 2  <br> WSU120-2000  <br> Triad Magnetics  <br> $15.07 each  <br> <a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU120-2000/3094983">Link</a> <br> <a href="https://catalog.triadmagnetics.com/Asset/WSU120-2000.pdf">Datasheet</a></td>
+<td>Average Efficiency  <br> Inexpensive</td>
+<td>More Expensive  <br> Has more noise</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/49f281c1-7b19-4a5e-b7aa-e597b33bff10" data-desc-position="bottom"><img alt="12V Wall Power 3" src="https://github.com/user-attachments/assets/49f281c1-7b19-4a5e-b7aa-e597b33bff10"></a>      <br>  Choice 3  <br> MDS-030AAC12 AB  <br> Delta Electronics  <br> $29.26/each  <br> <a href="https://www.digikey.com/en/products/detail/delta-electronics/MDS-030AAC12-AB/6150232">Link</a>  <br> <a href="https://psu.deltaww.com/en/products/download/Datasheet/MDS-030AAC05">Datasheet</a></td>
+<td>Medical Power Supply  <br> Average Efficiency</td>
+<td>Very Expensive  <br> Big</td>
+</tr>
+</tbody>
+</table>
 
 
 
