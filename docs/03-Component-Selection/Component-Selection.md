@@ -35,31 +35,25 @@ For more details, review the ["Appendix - Component Selection Process - Actuator
 
 *Table 1: Example component selection*
 
-**External Clock Module**
 
-| **Component**                                                                                                                                                                                      | **Pros**                                                                                                                                    | **Cons**                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| ![](image1.png)<br> XC1259TR-ND surface mount crystal<br>$1/each<br>[link to product](http://www.digikey.com/product-detail/en/ECS-40.3-S-5PX-TR/XC1259TR-ND/827366)                 | \* Inexpensive[^1]<br>\* Compatible with PSoC<br>\* Meets surface mount constraint of project                                               | \* Requires external components and support circuitry for interface<br>\* Needs special PCB layout. |
 
-**Rationale:** A clock oscillator is easier ....
+**Motor Driver**
 
-### Style 2
+1. IC MTR DRV BIPLR 2.5-5.5V TSOT23
 
-> Also acceptable, more markdown friendly
+   <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/259d9ca6-6d01-4b70-9611-f4e3c30ed2c5" />
 
-**External Clock Module**
 
-1. XC1259TR-ND surface mount crystal
-
-    ![](image1.png)
-
-    * $1/each
-    * [link to product](http://www.digikey.com/product-detail/en/ECS-40.3-S-5PX-TR/XC1259TR-ND/827366)
+    * $0.83/each
+    * [link to product](https://www.digikey.com/en/products/detail/monolithic-power-systems-inc/MP6513LGJ-Z/7361426)
 
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
-    | Inexpensive                               | Requires external components and support circuitry for interface |
-    | Compatible with PSoC                      | Needs special PCB layout.                                        |
-    | Meets surface mount constraint of project |
+    | Inexpensive                               | Max Voltage supply is 5.5V |
+    | Simple wiring                             | Low Max Current                                                  |
+    | Has EDA/CAD file                          | More for smaller applications like cameras and toys              |
 
+2. 
 **Rationale:** A clock oscillator is easier ...
+
+**
