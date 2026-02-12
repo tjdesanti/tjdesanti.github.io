@@ -941,14 +941,137 @@
 
 | Pros                                      | Cons                                                             |
 | ----------------------------------------- | ---------------------------------------------------------------- |
-| Inexpensive                               | Max Voltage supply is 5.5V |
-| Simple wiring                             | Low Max Current                                                  |
+| Inexpensive                               | Max Voltage supply is 5.5V                                       |
+| Has thermal, current, and short circuit projection  | Low Max Current                                        |
 | Has EDA/CAD file                          | More for smaller applications like cameras and toys              |
 </code></pre>
 <ol>
-<li><strong>Rationale:</strong> A clock oscillator is easier ...</li>
+<li>IC BRUSHED MOTOR DRVR 8TSSOP</li>
 </ol>
-<p>**</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/63ffbf3b-72db-4a41-874d-3367f02622ed" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/63ffbf3b-72db-4a41-874d-3367f02622ed"></a></p>
+<ul>
+<li>$0.83/each</li>
+<li>
+<p><a href="https://www.digikey.com/en/products/detail/toshiba-semiconductor-and-storage/TB67H450AFNG-EL/15995284">link to product</a></p>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inexpensive</td>
+<td>Only for DC brushed motors</td>
+</tr>
+<tr>
+<td>High Voltage &amp; Current intake</td>
+<td>Sensitive thermal conditions</td>
+</tr>
+<tr>
+<td>Has EDA/CAD file</td>
+<td>Motor output current setting pin might be difficult to set up</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>12-V, 1.76-A BRUSHED DC MOTOR DR
+   <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/606ccb0f-e37b-4324-836b-c4fcbfb50ea0" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/606ccb0f-e37b-4324-836b-c4fcbfb50ea0"></a></p>
+</li>
+<li>
+<p>$0.69/each</p>
+</li>
+<li>
+<p><a href="https://www.digikey.com/en/products/detail/texas-instruments/DRV8210DRLR/15286847">link to product</a></p>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cheapest option</td>
+<td>Only for DC brushed motors</td>
+</tr>
+<tr>
+<td>Protection Features</td>
+<td>under 12V</td>
+</tr>
+<tr>
+<td>Has EDA/CAD file</td>
+<td>Motor output current setting pin might be difficult to set up</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Rationale:</strong> The IC BRUSHED MOTOR DRVR 8TSSOP seems like the best option. It can take in high voltage and current for the motor. It is compatible 
+with both stepper and non-stepper DC motors. It seems like a versatile driver compared to the others that can't supply more than 12V.</p>
+<p><strong>DC Motors</strong></p>
+<ol>
+<li>STANDARD MOTOR 6600 RPM 12V</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a"></a></p>
+<ul>
+<li>$2.75/each</li>
+<li>
+<p><a href="https://www.digikey.com/en/products/detail/sparkfun-electronics/11696/6163657">link to product</a></p>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cheap</td>
+<td>Low torque, gear ratio may be needed</td>
+</tr>
+<tr>
+<td>can intake 12V</td>
+<td>need custom footprint</td>
+</tr>
+<tr>
+<td>2-wire setup</td>
+<td>Little data on the datasheet</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>GEARMOTOR 35 RPM 12V MICRO METAL</p>
+</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/5d55a898-66d3-45e2-bcfa-d092ef51ee8b" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/5d55a898-66d3-45e2-bcfa-d092ef51ee8b"></a></p>
+<ul>
+<li>$37.95</li>
+<li>
+<p><a href="https://www.digikey.com/en/products/detail/pololu/3046/10450048">link to product</a>
+    | Pros                                      | Cons                                                             |
+    | ----------------------------------------- | ---------------------------------------------------------------- |
+    | uses 12V                                  | High power                                                       |
+    | high torque                               | need custom footprint                                            |
+    | simple 2-wire connection                  | Might be too slow for the drive train                            |</p>
+</li>
+<li>
+<p>GEARMOTOR 220 RPM 12V MICR METAL</p>
+</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/b3d44045-bbae-4623-bf88-854a9ccc35e4" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/b3d44045-bbae-4623-bf88-854a9ccc35e4"></a></p>
+<ul>
+<li>$26.45</li>
+<li><a href="https://www.digikey.com/en/products/detail/pololu/3042/10450044">link to product</a>
+    | Pros                                      | Cons                                                             |
+    | ----------------------------------------- | ---------------------------------------------------------------- |
+    | uses 12V                                  |  may not be enough torque or fast enough                         |
+    | steady speed                               | need custom footprint                                           |
+    | simple 2-wire connection                  | may not be suitable for a drive train                            |</li>
+</ul>
 
 
 
