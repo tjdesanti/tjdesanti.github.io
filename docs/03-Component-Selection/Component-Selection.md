@@ -60,6 +60,7 @@ For more details, review the ["Appendix - Component Selection Process - Actuator
     | Has EDA/CAD file                          | Motor output current setting pin might be difficult to set up    |                    
 
 3. 12-V, 1.76-A BRUSHED DC MOTOR DR
+
    <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/606ccb0f-e37b-4324-836b-c4fcbfb50ea0" />
 
    * $0.69/each
@@ -174,9 +175,7 @@ with both stepper and non-stepper DC motors. It seems like a versatile driver co
 
 ### Rationale
 
-**Choice 2 – TMAG5273** is the best option due to simplified wiring, strong compatibility with the PIC MCU, and low power consumption.  
-Choice 1 is more complex to integrate, and Choice 3 lacks I2C support and requires more complicated wiring.
-
+**Choice 2 – TMAG5273** is the most suitable option because it requires minimal wiring, interfaces efficiently with the PIC microcontroller, and operates at very low power. In comparison, Choice 1 is more difficult to implement, while Choice 3 does not support I²C communication and involves more complex wiring.
 ---
 
 # 12V 2A AC-DC Wall Power Supplies
@@ -226,3 +225,4 @@ Choice 1 is more complex to integrate, and Choice 3 lacks I2C support and requir
 | Reliable and stable output | Large form factor |
 | Average efficiency |  |
 
+**Rationale:** Choice 1 is the preferred power supply because it offers low output noise while remaining cost-effective. Although the other options provide similar performance, Choice 2 has higher noise levels, and Choice 3 is unnecessarily specialized for this application, as it is designed for medical-grade equipment.
