@@ -4,13 +4,15 @@ title: Module Schematic
 
 ## Overview
 
-This schematic is design to support .... (highlight functionally, power, and controller).
+This schematic is designed to use the PIC18F47K42 to send signals to the Motor driver and receive data from other subsystems. The Hall effect is used to send values of the motor driver to other subsystems to record data.
 
 
-![schematic](Screenshot.png){style width:"350" height:"300;"}
-**Figure ##:** Showing a example schematic.
+<img width="1852" height="1280" alt="image" src="https://github.com/user-attachments/assets/1382fdb3-3e58-4131-ad25-52098b296c7f" />
+
+
 
 
 ## Resouces
 
-The schematic as a PDF download is available [*here*](ExampleSchematic.pdf), and the Zip folder of the project [*here*](dummyZip.zip).
+The schematic as a PDF download is available [Here](https://github.com/user-attachments/files/25456076/Schematic.pdf)
+, and the Zip folder of the project [Here](https://github.com/user-attachments/files/25456077/MotorDriver_EGR314.zip)
