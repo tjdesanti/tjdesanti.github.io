@@ -1005,7 +1005,7 @@
 </table>
 </li>
 </ul>
-<p><strong>Rationale:</strong> The ESP32 is a familiar component used in a previous class. The only issue is creating the PCB for all the components since i cant use the dev board with it. But it will be capable of working with the other microcontrollers to send signals back and forth.</p>
+<p><strong>Rationale:</strong> The ESP32 is a familiar component used in a previous class. The only issue is creating the PCB for all the components since I can't use the dev board with it. But it will be able to work with the other microcontrollers to send signals back and forth.</p>
 <p><strong>Motor Driver</strong></p>
 <ol>
 <li>IC MTR DRV BIPLR 2.5-5.5V TSOT23</li>
@@ -1092,28 +1092,30 @@
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/427120ef-6669-4ab0-9350-a32cda85099a"></a></p>
 <ul>
 <li>$2.75/each</li>
-<li>
-<p><a href="https://www.digikey.com/en/products/detail/sparkfun-electronics/11696/6163657">link to product</a>
+<li><a href="https://www.digikey.com/en/products/detail/sparkfun-electronics/11696/6163657">link to product</a></li>
+</ul>
+<p>*
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | cheap                                     | Low torque, gear ratio may be needed                             |
     | can intake 12V                            | need custom footprint                                            |
     | 2-wire setup                              | Little data on the datasheet                                     |</p>
-</li>
-<li>
-<p>GEARMOTOR 35 RPM 12V MICRO METAL</p>
-</li>
-</ul>
+<ol>
+<li>GEARMOTOR 35 RPM 12V MICRO METAL</li>
+</ol>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/5d55a898-66d3-45e2-bcfa-d092ef51ee8b" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/5d55a898-66d3-45e2-bcfa-d092ef51ee8b"></a></p>
 <ul>
 <li>$37.95</li>
 <li>
-<p><a href="https://www.digikey.com/en/products/detail/pololu/3046/10450048">link to product</a>
-    | Pros                                      | Cons                                                             |
-    | ----------------------------------------- | ---------------------------------------------------------------- |
-    | uses 12V                                  | High power                                                       |
-    | high torque                               | need custom footprint                                            |
-    | simple 2-wire connection                  | Might be too slow for the drive train                            |</p>
+<p><a href="https://www.digikey.com/en/products/detail/pololu/3046/10450048">link to product</a></p>
+</li>
+<li>
+<pre><code>| Pros                                      | Cons                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------- |
+| uses 12V                                  | High power                                                       |
+| high torque                               | need custom footprint                                            |
+| simple 2-wire connection                  | Might be too slow for the drive train                            |
+</code></pre>
 </li>
 <li>
 <p>GEARMOTOR 220 RPM 12V MICR METAL</p>
@@ -1122,12 +1124,17 @@
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/user-attachments/assets/b3d44045-bbae-4623-bf88-854a9ccc35e4" data-desc-position="bottom"><img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/b3d44045-bbae-4623-bf88-854a9ccc35e4"></a></p>
 <ul>
 <li>$26.45</li>
-<li><a href="https://www.digikey.com/en/products/detail/pololu/3042/10450044">link to product</a>
-    | Pros                                      | Cons                                                             |
-    | ----------------------------------------- | ---------------------------------------------------------------- |
-    | uses 12V                                  |  may not be enough torque or fast enough                         |
-    | steady speed                               | need custom footprint                                           |
-    | simple 2-wire connection                  | may not be suitable for a drive train                            |</li>
+<li>
+<p><a href="https://www.digikey.com/en/products/detail/pololu/3042/10450044">link to product</a></p>
+</li>
+<li>
+<pre><code>| Pros                                      | Cons                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------- |
+| uses 12V                                  |  may not be enough torque or fast enough                         |
+| steady speed                               | need custom footprint                                           |
+| simple 2-wire connection                  | may not be suitable for a drive train                            |
+</code></pre>
+</li>
 </ul>
 <p><strong>Rationale:</strong> The GEARMOTOR 220 RPM 12V MICR METAL seems to be the best fit for the drive train system. Not only does it use 12V, but it has a balance of torque and speed that should be able to haul the weight of the rest of the scavenger tank.</p>
 <h1 id="12v-2a-ac-dc-wall-power-supplies">12V 2A AC-DC Wall Power Supplies</h1>
