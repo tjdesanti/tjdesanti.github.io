@@ -3,3 +3,5 @@ title: Module's PCB
 ---
 
 ## PCB
+
+Image of the top and bottom layers of the PCB.
