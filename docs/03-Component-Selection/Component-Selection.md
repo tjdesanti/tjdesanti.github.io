@@ -54,6 +54,7 @@ The following sections are the selected major components of the drive train for 
     | Has EDA/CAD file                          | Motor output current setting pin might be difficult to set up    |                    
 
 3. IFX9201SGAUMA1
+   
    <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/dbdd3c4c-24d0-4077-8f2b-f57478658c6c" />
 
 
