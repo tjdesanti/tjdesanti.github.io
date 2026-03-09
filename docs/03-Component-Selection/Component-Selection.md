@@ -16,13 +16,14 @@ The following sections are the selected major components of the drive train for 
  * [link to product](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4/16162639)
 
 
-    | Pros                                      | Cons                                                             |
-    | ----------------------------------------- | ---------------------------------------------------------------- |
+    | Pros                                      | Cons                                                                |
+    | ----------------------------------------- | --------------------------------------------------------------------|
     | Inexpensive                               | might have to create a circuit with it to make it easier to program |
-    | Has many pins to use                      | Limited Pins                                       |
-    | Has EDA/CAD file                          |                                                                  |
+    | Has many pins to use                      | Limited Pins                                                        |
+    | Has EDA/CAD file                          |                                                                     |
    
-**Rationale:** The ESP32 is a familiar component used in a previous class. The only issue is creating the PCB for all the components since i cant use the dev board with it. But it will be capable of working with the other microcontrollers to send signals back and forth.
+   
+**Rationale:** The ESP32 is a familiar component used in a previous class. The only issue is creating the PCB for all the components since I can't use the dev board with it. But it will be able to work with the other microcontrollers to send signals back and forth.
 
 **Motor Driver**
 
@@ -84,6 +85,8 @@ The following sections are the selected major components of the drive train for 
 
    * $2.75/each
    * [link to product](https://www.digikey.com/en/products/detail/sparkfun-electronics/11696/6163657)
+
+*
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | cheap                                     | Low torque, gear ratio may be needed                             |
@@ -96,6 +99,8 @@ The following sections are the selected major components of the drive train for 
 
    * $37.95
    * [link to product](https://www.digikey.com/en/products/detail/pololu/3046/10450048)
+
+   * 
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | uses 12V                                  | High power                                                       |
@@ -109,6 +114,8 @@ The following sections are the selected major components of the drive train for 
 
    * $26.45
    * [link to product](https://www.digikey.com/en/products/detail/pololu/3042/10450044)
+
+   * 
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | uses 12V                                  |  may not be enough torque or fast enough                         |
