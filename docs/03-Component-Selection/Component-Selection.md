@@ -8,20 +8,21 @@ The following sections are the selected major components of the drive train for 
 
 
 **Mircocontroller**
-1. PIC18F57Q43
+1. ESP32-S3-WROOM-1-N4
 
-   <img width="256" height="228" alt="image" src="https://github.com/user-attachments/assets/b9444a11-af70-4757-ae57-3bd7d040e876" />
- * $1.56/each
- * [link to product](https://www.microchip.com/en-us/product/PIC18F57Q43#product-purchase)
+   <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/5cd892b2-e550-4b43-9d77-9b9d1a0d370f" />
+
+ * $5.06/each
+ * [link to product](https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4/16162639)
 
 
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | Inexpensive                               | might have to create a circuit with it to make it easier to program |
-    | Has many pins to use                      | programing maybe difficult                                       |
+    | Has many pins to use                      | Limited Pins                                       |
     | Has EDA/CAD file                          |                                                                  |
    
-**Rationale:** The pic is a familiar component used in a previous class. The only issue is might have to recreate the board that came with the microcontroller in order to use it the same way as before. But it will be capable of working with the esp to send signals back and forth.
+**Rationale:** The ESP32 is a familiar component used in a previous class. The only issue is creating the PCB for all the components since i cant use the dev board with it. But it will be capable of working with the other microcontrollers to send signals back and forth.
 
 **Motor Driver**
 
@@ -52,17 +53,18 @@ The following sections are the selected major components of the drive train for 
     | High Voltage & Current intake             | Sensitive thermal conditions                                     |
     | Has EDA/CAD file                          | Motor output current setting pin might be difficult to set up    |                    
 
-3. 12-V, 1.76-A BRUSHED DC MOTOR DR
+3. IFX9201SGAUMA1
+   <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/dbdd3c4c-24d0-4077-8f2b-f57478658c6c" />
 
-   <img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/606ccb0f-e37b-4324-836b-c4fcbfb50ea0" />
 
-   * $0.69/each
-   * [link to product](https://www.digikey.com/en/products/detail/texas-instruments/DRV8210DRLR/15286847)
+
+   * $3.55/each
+   * [link to product](https://www.digikey.com/en/products/detail/infineon-technologies/IFX9201SGAUMA1/5415542?s=N4IgTCBcDaIJIDEAaBOMAGAjAZQOIEEBVAWX0xAF0BfIA)
 
     | Pros                                      | Cons                                                             |
     | ----------------------------------------- | ---------------------------------------------------------------- |
-    | cheapest option                           | Only for DC brushed motors                                       |
-    | Protection Features                       | under 12V                                                        |
+    | familiar component                        | Only for DC brushed motors                                       |
+    | Protection Features                       |  12V                                                        |
     | Has EDA/CAD file                          | Motor output current setting pin might be difficult to set up    |   
 
 
@@ -71,8 +73,7 @@ The following sections are the selected major components of the drive train for 
 
 
    
-**Rationale:** The IC BRUSHED MOTOR DRVR 8TSSOP seems like the best option. It can take in high voltage and current for the motor. It is compatible 
-with both stepper and non-stepper DC motors. It seems like a versatile driver compared to the others that can't supply more than 12V.
+**Rationale:** IFX9201SGAUMA1 is a part we used in class. Already familiar with setting up and coding. Know it uses I^2C while the other components are unsure if they use I^2C.
 
 **DC Motors**
 
@@ -115,62 +116,6 @@ with both stepper and non-stepper DC motors. It seems like a versatile driver co
 
 **Rationale:** The GEARMOTOR 220 RPM 12V MICR METAL seems to be the best fit for the drive train system. Not only does it use 12V, but it has a balance of torque and speed that should be able to haul the weight of the rest of the scavenger tank.
 
-# Hall Effect Sensors
-
-## 1. AS5600-ASOM – ams-OSRAM USA INC.
-
-<img width="200" height="200" alt="AS5600-ASOM" src="https://github.com/user-attachments/assets/d7a010bf-4280-4f01-a04b-e3f10b7f98b4" />
-
-* $3.17/each  
-* [Link to Product](https://www.digikey.com/en/products/detail/ams-osram/AS5600-ASOM/4914332)  
-* [Datasheet](https://www.digikey.com/html/datasheets/productinfo/1647438/0/0/1/as5600-datasheet.pdf)
-
-| Pros | Cons |
-|------|------|
-| Have worked with this before | Harder to integrate |
-| Multiple output modes | More pins, harder to wire |
-| Reliable angular sensing | Most expensive option |
-
----
-
-## 2. TMAG5273 Low-Power Linear 3D Hall-Effect Sensor – Texas Instruments
-
-<img width="200" height="200" alt="TMAG5273" src="https://github.com/user-attachments/assets/28da5486-a231-4f36-b95a-c55579f82a12" />
-
-* $1.24/each  
-* [Link to Product](https://www.mouser.com/ProductDetail/Texas-Instruments/TMAG5273D1QDBVR?q=IKkN%2F947nDf5iy%252BbYuEbTg%3D%3D)  
-* [Datasheet](https://www.ti.com/lit/ds/symlink/tmag5273.pdf)
-
-| Pros | Cons |
-|------|------|
-| Fewer pins (simpler wiring) | Lower magnetic sensitivity |
-| Inexpensive | Fewer output modes |
-| Integrates well with PIC MCU |  |
-| Very low power consumption |  |
-
----
-
-## 3. TLE5009 – Infineon Technologies
-
-<img width="200" height="200" alt="TLE5009" src="https://github.com/user-attachments/assets/e3df8eee-b0c7-499a-b3e3-261530e28e23" />
-
-* $2.73/each  
-* [Link to Product](https://www.mouser.com/ProductDetail/Infineon-Technologies/TLE5009-E20102qs=%252BwNEOWq1JvGhyLjFiYi7Q%3D%3D)  
-* [Datasheet](https://www.mouser.com/datasheet/3/70/1Infineon-TLE5009_EXXXX-DataSheet-v01_01-EN.pdf)
-
-| Pros | Cons |
-|------|------|
-| Operates at 3.3V and 5V | Does not use I2C |
-| Low output current | More pins, harder to wire |
-|  | More expensive |
-|  | No configurable address |
-
----
-
-### Rationale
-
-**Choice 2 – TMAG5273** is the most suitable option because it requires minimal wiring, interfaces efficiently with the PIC microcontroller, and operates at very low power. In comparison, Choice 1 is more difficult to implement, while Choice 3 does not support I²C communication and involves more complex wiring.
----
 
 # 12V 2A AC-DC Wall Power Supplies
 
