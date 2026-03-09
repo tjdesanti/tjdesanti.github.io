@@ -6,29 +6,25 @@ tags:
 ---
 
 ## Overview
-Written context needs to added!
+All the parts used for this system
 
->Pick **ONLY** one of the two examples show below. **Remove** the other example. **REMOVE notations within the remaining section about being an example.**  
 
-## Bill of Materials (Example as Table)
+# Parts List
 
-*Table ##: An example of one approach to adding your BOM table to this section.*
-
-| **Part Name/Description** | **Qty** | **Unit Cost** | **Total Cost** | **Manufacture** | **Manufacturer #** | **Vendor Link** |**Datasheet Link** | **Schematic Reference Designators** |
-|:--------------------|:----|:---------------|:-----|:--------|:-----|:-----|:----|:-----|
-8-bit SIPO/SISO Shift Register, SOIC-16 package | 1 | $0.49 | $ 0.49 | NXP | 74HC595D,112 | [DigiKey](https://www.digikey.com/en/products/detail/nexperia-usa-inc/74HC595D-112/763550) | [datasheet link](https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf) | U1 |
-0.1 µF Ceramic Capacitor, +/-10%, X7R, 50V, 0805 package |10 | 0.2750 | $2.75 | KEMET | C0805F104K5RACTU | PRLTA 109 |n/a | C2, C4, C6, C7, C8, C9, C10, C11, C12, C16
-
-Note: Setting it up as a table is nice because it is completely viewable without scaling issues. <ins>Downside</ins> is that you have to do the math.
-
-* You could also import your BOM via a screenshot of the spreadsheet created BOM
-
-## Bill of Materials (Example as Image)
-![](BOM-Screenshot.png){style width: "2000"}
-**Figure ##:** Example Bill of Materials as a screenshot.
-
-As you can see, the text can be difficult to read without opening the image.
+| Part Number | Quantity | Product Link | Purpose | Unit Price ($) |
+|-------------|----------|--------------|---------|---------------|
+| 12345ABCDE | 6 | www.thisistheplace.com/12345ABCDE | protect student/instructor eyes while working | 3.49 |
+| IFX9201SGAUMA1 | 1 | https://www.digikey.com/en/products/detail/infineon-technologies/IFX9201SGAUMA1/ | Controls DC motor | 3.55 |
+| LM2575D2T-3.3R4G | 2 | https://www.digikey.com/en/products/detail/onsemi/LM2575D2T-3-3R4G/ | Power down Voltage | 2.16 |
+| ESP32-S3-WROOM-1-N4 | 1 | https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4/ | Micro Controller | 5.06 |
+| USB3131-30-0230-A | 2 | https://www.digikey.com/en/products/detail/gct/USB3131-30-0230-A/ | used to download code to microcontroller | 0.78 |
+| RC0402JR-074K7L | 10 | https://www.digikey.com/en/products/detail/yageo/RC0402JR-074K7L/ | Helps with electrical components | 0.03 |
+| LTST-C170GKT | 10 | https://www.digikey.com/en/products/detail/lite-on/LTST-C170GKT/ | signal if board is powered | 0.10 |
+| 430182043816 | 4 | https://www.digikey.com/en/products/detail/w-r/430182043816/ | helps with debugging board and program | 0.53 |
+| 2183-3042-ND | 1 | https://www.digikey.com/en/products/detail/pololu/2183-3042-ND/ | The item im powering/coding | 26.45 |
 
 ## Resouce
 
-The Bill of Material as a PDF download is available [*here*](PDF_For_BOM_EXAMPLE.pdf).
+The Bill of Materials as a Zip download is available [Here](https://github.com/user-attachments/files/25832244/MotorContorller_EGR314BOM.zip)
+
+
