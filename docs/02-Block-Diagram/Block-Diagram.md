@@ -12,6 +12,7 @@ This system uses a PIC18F47Q10 microcontroller and an ESP32 Wi-Fi module to cont
 ## Block Diagram 
 
 
-<img width="863" height="801" alt="image" src="https://github.com/user-attachments/assets/30b06a07-6d16-4bb8-8f87-9b6bf0ff07b3" />
+<img width="1220" height="920" alt="image" src="https://github.com/user-attachments/assets/989ff5a9-2dde-4705-8301-b5b6d595870f" />
+
 
 
