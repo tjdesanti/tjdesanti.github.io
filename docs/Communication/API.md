@@ -7,125 +7,144 @@
 ---
 
 ## 1. Overview
-The Final Node is responsible for **message validation and actuation** within the system.  
-
-It ensures that only **compliant messages**:
-- Follow the required schema  
-- Pass checksum validation  
-- Contain valid command values  
-
-are allowed to control hardware outputs.
+The Final Node validates incoming messages at the **byte level** and executes motor control only if the message is compliant.
 
 ---
 
-## 2. System Responsibilities
-- Subscribe to incoming MQTT messages  
-- Validate message structure  
-- Verify checksum correctness  
-- Execute motor control logic  
-- Publish validation result  
+## 2. Message Structure (Byte-Level)
+
+### 2.1 Packet Format
+
+| Byte Index | Field        | Size (Bytes) | Description |
+|-----------|-------------|-------------|------------|
+| 0         | START       | 1           | Start byte (0x7E) |
+| 1         | NODE_ID     | 1           | Sender node ID |
+| 2–5       | TIMESTAMP   | 4           | Unix timestamp |
+| 6         | COMMAND     | 1           | Control command |
+| 7         | CHECKSUM    | 1           | Error detection |
+| 8         | STOP        | 1           | Stop byte (0x7F) |
 
 ---
 
-## 3. Hardware Interface
-
-### 3.1 Pin Configuration
-
-| Signal | Pin | Description |
-|--------|-----|------------|
-| SCK | 10 | SPI Clock |
-| MOSI | 12 | SPI Data Out |
-| MISO | 8 | SPI Data In |
-| CS | 11 | Chip Select |
-| DIS | 9 | Motor Enable |
-| PWM | 18 | Motor Speed |
-| DIR | 16 | Motor Direction |
-| BUTTON | 13 | User Input |
-| LED | 4 | Status Indicator |
-
----
-
-## 4. Communication Interface
-
-### 4.1 Protocol
-- MQTT over TCP/IP  
-
-### 4.2 Broker
+### 2.2 Total Packet Size
 ```
-broker.hivemq.com
-```
-
-### 4.3 Topics
-
-| Direction | Topic |
-|----------|------|
-| Subscribe | `team301/final/input` |
-| Publish | `team301/final/status` |
-
----
-
-## 5. Message Specification
-
-### 5.1 Input Message Format
-
-```json
-{
-  "node_id": "string",
-  "timestamp": 12345,
-  "payload": {
-    "command": "ON" | "OFF"
-  },
-  "checksum": 123
-}
+9 bytes
 ```
 
 ---
 
-## 6. Compliance Requirements
+## 3. Field Definitions
 
-### 6.1 Structural Requirements
-The message MUST include:
-- `node_id`
-- `timestamp`
-- `payload.command`
-- `checksum`
+### 3.1 START Byte
+| Value | Description |
+|------|------------|
+| 0x7E | Indicates start of message |
 
 ---
 
-### 6.2 Data Constraints
-
-| Field | Requirement |
-|-------|------------|
-| node_id | Non-empty string |
-| timestamp | Integer > 0 |
-| command | "ON" or "OFF" |
+### 3.2 NODE_ID
+| Value | Description |
+|------|------------|
+| 0x01–0xFF | Unique node identifier |
 
 ---
 
-### 6.3 Checksum Definition
+### 3.3 TIMESTAMP (4 Bytes)
+- 32-bit integer  
+- Big-endian format  
 
+Example:
 ```
-checksum = (sum of ASCII values of command) % 256
-```
-
-#### Example
-```
-"ON" → 79 + 78 = 157 → checksum = 157
+0x00 0x00 0x30 0x39 → 12345
 ```
 
 ---
 
-## 7. System Behavior
+### 3.4 COMMAND
 
-| Condition | Motor | LED | Status Output |
-|----------|------|-----|---------------|
+| Value | Meaning |
+|------|--------|
+| 0x01 | ON |
+| 0x00 | OFF |
+
+---
+
+### 3.5 CHECKSUM
+
+Checksum is computed as:
+
+```
+checksum = (sum of bytes 1 through 6) % 256
+```
+
+Includes:
+- NODE_ID  
+- TIMESTAMP (all 4 bytes)  
+- COMMAND  
+
+---
+
+### 3.6 STOP Byte
+
+| Value | Description |
+|------|------------|
+| 0x7F | End of message |
+
+---
+
+## 4. Example Packet
+
+### 4.1 Input Values
+- NODE_ID = 0x03  
+- TIMESTAMP = 12345  
+- COMMAND = ON  
+
+---
+
+### 4.2 Byte Representation
+
+| Byte | Value | Description |
+|-----|------|------------|
+| 0 | 0x7E | START |
+| 1 | 0x03 | NODE_ID |
+| 2 | 0x00 | TIMESTAMP |
+| 3 | 0x00 | TIMESTAMP |
+| 4 | 0x30 | TIMESTAMP |
+| 5 | 0x39 | TIMESTAMP |
+| 6 | 0x01 | COMMAND (ON) |
+| 7 | 0x6D | CHECKSUM |
+| 8 | 0x7F | STOP |
+
+---
+
+## 5. Compliance Rules
+
+A message is **VALID** only if:
+
+### 5.1 Structural
+- Correct packet length (9 bytes)  
+- Valid START and STOP bytes  
+
+### 5.2 Field Validity
+- NODE_ID is within range  
+- COMMAND is 0x00 or 0x01  
+
+### 5.3 Checksum
+- Matches computed value  
+
+---
+
+## 6. System Behavior
+
+| Condition | Motor | LED | Status |
+|----------|------|-----|--------|
 | VALID + ON | ON | ON | VALID |
 | VALID + OFF | OFF | ON | VALID |
 | INVALID | OFF | OFF | INVALID |
 
 ---
 
-## 8. State Machine
+## 7. State Machine
 
 ```
 IDLE → RECEIVE → VALIDATE → ACT → REPORT → IDLE
@@ -133,28 +152,20 @@ IDLE → RECEIVE → VALIDATE → ACT → REPORT → IDLE
 
 ---
 
-## 9. Test Procedure
+## 8. Test Example
 
-### 9.1 Valid Message
-
-```bash
-mosquitto_pub -h broker.hivemq.com -t team301/final/input -m '{"node_id":"node3","timestamp":12345,"payload":{"command":"ON"},"checksum":157}'
+### Raw Packet (Hex)
+```
+7E 03 00 00 30 39 01 6D 7F
 ```
 
 ---
 
-### 9.2 Expected Result
-- Motor turns ON  
-- LED turns ON  
-- MQTT publishes: `VALID`  
-
----
-
-## 10. Compliance Summary
-This implementation provides:
-- Deterministic validation logic  
-- Strict schema enforcement  
-- Verified checksum computation  
-- Observable system behavior  
+## 9. Compliance Summary
+This implementation enforces:
+- Byte-level validation  
+- Deterministic checksum verification  
+- Fixed packet structure  
+- Reliable actuation control  
 
 ---
