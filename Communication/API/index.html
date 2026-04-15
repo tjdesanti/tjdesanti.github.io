@@ -87,6 +87,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#final-node-implementation" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -832,6 +837,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -841,6 +857,146 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#final-node-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Node Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Final Node Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Responsibilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pin-configuration-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Configuration (ESP32)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      MQTT Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliance-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compliance Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Behavior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Machine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-test-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Test Message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliance-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compliance Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -872,6 +1028,137 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#final-node-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Final Node Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Final Node Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Responsibilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pin-configuration-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Configuration (ESP32)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mqtt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      MQTT Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliance-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compliance Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Behavior
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Machine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-test-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Test Message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compliance-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compliance Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -895,7 +1182,181 @@
 
   <h1>API</h1>
 
-<p>'</p>
+<h2 id="final-node-implementation">Final Node Implementation</h2>
+<h3 id="overview">Overview</h3>
+<p>This node is the <strong>final stage</strong> in the message chain. It verifies message compliance and controls hardware based on validated input.</p>
+<hr>
+<h3 id="system-responsibilities">System Responsibilities</h3>
+<ul>
+<li>Receive MQTT message</li>
+<li>Validate structure and checksum</li>
+<li>Execute command (motor ON/OFF)</li>
+<li>Publish validation result</li>
+</ul>
+<hr>
+<h3 id="pin-configuration-esp32">Pin Configuration (ESP32)</h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCK</td>
+<td>10</td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td>12</td>
+</tr>
+<tr>
+<td>MISO</td>
+<td>8</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>11</td>
+</tr>
+<tr>
+<td>DIS (Motor Enable)</td>
+<td>9</td>
+</tr>
+<tr>
+<td>PWM</td>
+<td>18</td>
+</tr>
+<tr>
+<td>DIR</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Button</td>
+<td>13</td>
+</tr>
+<tr>
+<td>LED</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="mqtt-configuration">MQTT Configuration</h3>
+<p><strong>Broker:</strong></p>
+<div class="highlight"><pre><span></span><code>broker.hivemq.com
+</code></pre></div>
+<p><strong>Topics:</strong></p>
+<div class="highlight"><pre><span></span><code>Subscribe: team301/final/input  
+Publish:   team301/final/status
+</code></pre></div>
+<hr>
+<h3 id="message-format">Message Format</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ON"</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">"OFF"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+<h3 id="compliance-rules">Compliance Rules</h3>
+<p>A message is considered <strong>VALID</strong> only if:</p>
+<ol>
+<li>
+<p>All required fields exist:</p>
+</li>
+<li>
+<p><code>node_id</code></p>
+</li>
+<li><code>timestamp</code></li>
+<li><code>payload.command</code></li>
+<li>
+<p><code>checksum</code></p>
+</li>
+<li>
+<p>Field constraints:</p>
+</li>
+<li>
+<p><code>node_id</code> is not empty</p>
+</li>
+<li><code>timestamp &gt; 0</code></li>
+<li>
+<p><code>command</code> is either <code>"ON"</code> or <code>"OFF"</code></p>
+</li>
+<li>
+<p>Checksum is correct:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>checksum = (sum of ASCII values of command) % 256
+</code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code>"ON" → 79 + 78 = 157 → VALID checksum = 157
+</code></pre></div>
+<hr>
+<h3 id="system-behavior">System Behavior</h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Motor</th>
+<th>LED</th>
+<th>Status Published</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VALID + ON</td>
+<td>ON</td>
+<td>ON</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>VALID + OFF</td>
+<td>OFF</td>
+<td>ON</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>INVALID</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>INVALID</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="state-machine">State Machine</h3>
+<div class="highlight"><pre><span></span><code>IDLE → RECEIVE → VALIDATE → ACT → REPORT → IDLE
+</code></pre></div>
+<hr>
+<h3 id="example-test-message">Example Test Message</h3>
+<div class="highlight"><pre><span></span><code>mosquitto_pub -h broker.hivemq.com -t team301/final/input -m '{"node_id":"node3","timestamp":12345,"payload":{"command":"ON"},"checksum":157}'
+</code></pre></div>
+<hr>
+<h3 id="expected-output">Expected Output</h3>
+<ul>
+<li>Motor turns ON</li>
+<li>LED turns ON</li>
+<li>MQTT publishes:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>VALID
+</code></pre></div>
+<hr>
+<h3 id="compliance-summary">Compliance Summary</h3>
+<p>This node ensures:</p>
+<ul>
+<li>Strict message validation</li>
+<li>Deterministic checksum verification</li>
+<li>Controlled actuation</li>
+<li>Observable system output</li>
+</ul>
+<hr>
+<h3 id="author">Author</h3>
+<p>Tim Desanti
+Team 301 – Embedded Systems Design</p>
 
 
 
