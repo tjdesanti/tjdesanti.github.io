@@ -1,54 +1,72 @@
-## Final Node Implementation
+# Final Node API Specification  
+## Message Compliance Verification System  
 
-### Overview
-
-This node is the **final stage** in the message chain. It verifies message compliance and controls hardware based on validated input.
-
----
-
-### System Responsibilities
-
-* Receive MQTT message
-* Validate structure and checksum
-* Execute command (motor ON/OFF)
-* Publish validation result
+**Author:** Tim Desanti  
+**Course:** EGR 314 – Embedded Systems Design  
 
 ---
 
-### Pin Configuration (ESP32)
+## 1. Overview
+The Final Node is responsible for **message validation and actuation** within the system.  
 
-| Signal             | Pin |
-| ------------------ | --- |
-| SCK                | 10  |
-| MOSI               | 12  |
-| MISO               | 8   |
-| CS                 | 11  |
-| DIS (Motor Enable) | 9   |
-| PWM                | 18  |
-| DIR                | 16  |
-| Button             | 13  |
-| LED                | 4   |
+It ensures that only **compliant messages**:
+- Follow the required schema  
+- Pass checksum validation  
+- Contain valid command values  
+
+are allowed to control hardware outputs.
 
 ---
 
-### MQTT Configuration
+## 2. System Responsibilities
+- Subscribe to incoming MQTT messages  
+- Validate message structure  
+- Verify checksum correctness  
+- Execute motor control logic  
+- Publish validation result  
 
-**Broker:**
+---
 
+## 3. Hardware Interface
+
+### 3.1 Pin Configuration
+
+| Signal | Pin | Description |
+|--------|-----|------------|
+| SCK | 10 | SPI Clock |
+| MOSI | 12 | SPI Data Out |
+| MISO | 8 | SPI Data In |
+| CS | 11 | Chip Select |
+| DIS | 9 | Motor Enable |
+| PWM | 18 | Motor Speed |
+| DIR | 16 | Motor Direction |
+| BUTTON | 13 | User Input |
+| LED | 4 | Status Indicator |
+
+---
+
+## 4. Communication Interface
+
+### 4.1 Protocol
+- MQTT over TCP/IP  
+
+### 4.2 Broker
 ```
 broker.hivemq.com
 ```
 
-**Topics:**
+### 4.3 Topics
 
-```
-Subscribe: team301/final/input  
-Publish:   team301/final/status
-```
+| Direction | Topic |
+|----------|------|
+| Subscribe | `team301/final/input` |
+| Publish | `team301/final/status` |
 
 ---
 
-### Message Format
+## 5. Message Specification
+
+### 5.1 Input Message Format
 
 ```json
 {
@@ -63,48 +81,51 @@ Publish:   team301/final/status
 
 ---
 
-### Compliance Rules
+## 6. Compliance Requirements
 
-A message is considered **VALID** only if:
+### 6.1 Structural Requirements
+The message MUST include:
+- `node_id`
+- `timestamp`
+- `payload.command`
+- `checksum`
 
-1. All required fields exist:
+---
 
-   * `node_id`
-   * `timestamp`
-   * `payload.command`
-   * `checksum`
+### 6.2 Data Constraints
 
-2. Field constraints:
+| Field | Requirement |
+|-------|------------|
+| node_id | Non-empty string |
+| timestamp | Integer > 0 |
+| command | "ON" or "OFF" |
 
-   * `node_id` is not empty
-   * `timestamp > 0`
-   * `command` is either `"ON"` or `"OFF"`
+---
 
-3. Checksum is correct:
+### 6.3 Checksum Definition
 
 ```
 checksum = (sum of ASCII values of command) % 256
 ```
 
-**Example:**
-
+#### Example
 ```
-"ON" → 79 + 78 = 157 → VALID checksum = 157
+"ON" → 79 + 78 = 157 → checksum = 157
 ```
 
 ---
 
-### System Behavior
+## 7. System Behavior
 
-| Condition   | Motor | LED | Status Published |
-| ----------- | ----- | --- | ---------------- |
-| VALID + ON  | ON    | ON  | VALID            |
-| VALID + OFF | OFF   | ON  | VALID            |
-| INVALID     | OFF   | OFF | INVALID          |
+| Condition | Motor | LED | Status Output |
+|----------|------|-----|---------------|
+| VALID + ON | ON | ON | VALID |
+| VALID + OFF | OFF | ON | VALID |
+| INVALID | OFF | OFF | INVALID |
 
 ---
 
-### State Machine
+## 8. State Machine
 
 ```
 IDLE → RECEIVE → VALIDATE → ACT → REPORT → IDLE
@@ -112,39 +133,28 @@ IDLE → RECEIVE → VALIDATE → ACT → REPORT → IDLE
 
 ---
 
-### Example Test Message
+## 9. Test Procedure
 
-```
+### 9.1 Valid Message
+
+```bash
 mosquitto_pub -h broker.hivemq.com -t team301/final/input -m '{"node_id":"node3","timestamp":12345,"payload":{"command":"ON"},"checksum":157}'
 ```
 
 ---
 
-### Expected Output
-
-* Motor turns ON
-* LED turns ON
-* MQTT publishes:
-
-```
-VALID
-```
+### 9.2 Expected Result
+- Motor turns ON  
+- LED turns ON  
+- MQTT publishes: `VALID`  
 
 ---
 
-### Compliance Summary
-
-This node ensures:
-
-* Strict message validation
-* Deterministic checksum verification
-* Controlled actuation
-* Observable system output
+## 10. Compliance Summary
+This implementation provides:
+- Deterministic validation logic  
+- Strict schema enforcement  
+- Verified checksum computation  
+- Observable system behavior  
 
 ---
-
-### Author
-
-Tim Desanti
-Team 301 – Embedded Systems Design
-
