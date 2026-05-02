@@ -6,8 +6,9 @@ title: Module's PCB
 
 Image of the top and bottom layers of the PCB.
 
-<img width="1900" height="1304" alt="image" src="https://github.com/user-attachments/assets/29e06e0e-af34-40a2-b946-9f73a3906658" />
-<img width="1660" height="1252" alt="image" src="https://github.com/user-attachments/assets/ae2d3811-9527-48a2-88b7-997a874657fe" />
+<img width="1338" height="1012" alt="image" src="https://github.com/user-attachments/assets/2a862888-ae73-44e8-bdac-010beb8ef0a3" />
+<img width="1390" height="1034" alt="image" src="https://github.com/user-attachments/assets/a38373ed-6500-4659-8f94-7ffb361c6d99" />
+
 
 
 
