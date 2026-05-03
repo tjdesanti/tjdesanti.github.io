@@ -5,7 +5,7 @@ tags:
 ---
 
 ## Overview
-All the parts used for this system
+All the parts used for this system, extra quanity of parts were added in case of damage due to testing and error.  
 
 
 # Parts List
@@ -22,6 +22,7 @@ All the parts used for this system
 | 430182043816 | 4 | https://www.digikey.com/en/products/detail/w-r/430182043816/ | helps with debugging board and program | 0.53 |
 | 2183-3042-ND | 1 | https://www.digikey.com/en/products/detail/pololu/2183-3042-ND/ | The item im powering/coding | 26.45 |
 
+Total : $64.43
 ## Resouce
 
 The Bill of Materials as a Zip download is available [Here](https://github.com/user-attachments/files/25832244/MotorContorller_EGR314BOM.zip)
