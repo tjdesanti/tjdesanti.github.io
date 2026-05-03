@@ -12,7 +12,6 @@ All the parts used for this system, extra quanity of parts were added in case of
 
 | Part Number | Quantity | Product Link | Purpose | Unit Price ($) |
 |-------------|----------|--------------|---------|---------------|
-| 12345ABCDE | 6 | www.thisistheplace.com/12345ABCDE | protect student/instructor eyes while working | 3.49 |
 | IFX9201SGAUMA1 | 1 | https://www.digikey.com/en/products/detail/infineon-technologies/IFX9201SGAUMA1/ | Controls DC motor | 3.55 |
 | LM2575D2T-3.3R4G | 2 | https://www.digikey.com/en/products/detail/onsemi/LM2575D2T-3-3R4G/ | Power down Voltage | 2.16 |
 | ESP32-S3-WROOM-1-N4 | 1 | https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4/ | Micro Controller | 5.06 |
