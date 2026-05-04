@@ -1411,7 +1411,7 @@
 <p>When a valid packet is received, the message body is checked for motor commands — <code>FWD</code> runs the motor forward, <code>REV</code> runs it in reverse, and <code>STOP</code> disables the outputs, all driven through an IFX9201 H-bridge over GPIO. The onboard button (Pin 13) also allows local motor state cycling for testing. A failsafe monitors the BOOT button (Pin 0) and safely shuts down the motor and exits if held for more than 1.5 seconds.</p>
 <hr>
 <h2 id="2-team-communication-chain">2. Team Communication Chain</h2>
-<div class="highlight"><pre><span></span><code>Rylee (W) → Bryce (B) → Tim (T) → Riley (F) → Hattie (H)
+<div class="highlight"><pre><span></span><code>Rylee (W) → Tim (T) → Bryce (B) → Riley (F) → Hattie (H)
 </code></pre></div>
 <table>
 <thead>
@@ -1658,7 +1658,7 @@
 </tbody>
 </table>
 <h3 id="packet-string-representation">Packet string representation:</h3>
-<div class="highlight"><pre><span></span><code>AZBTFWDby
+<div class="highlight"><pre><span></span><code>AZBTFWDBY
 </code></pre></div>
 <hr>
 <h2 id="6-compliance-rules">6. Compliance Rules</h2>
