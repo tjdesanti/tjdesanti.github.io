@@ -7,10 +7,12 @@ title: Tim's PCB
 Images of the blank PCB before any components were soldered.
 
 **Front:**
-<img src="images/BlankPCB_FRONT.jpeg" alt="Blank PCB Front" width="800"/>
+<img width="1848" height="1386" alt="BlankPCB_FRONT" src="https://github.com/user-attachments/assets/90f63fbc-2d4e-43f8-87ec-7c7d9d343fcd" />
+
 
 **Back:**
-<img src="images/BlankPCB_BACK.jpeg" alt="Blank PCB Back" width="800"/>
+<img width="1848" height="1386" alt="BlankPCB_BACK" src="https://github.com/user-attachments/assets/0214d159-036f-49dc-9510-b2f8f5e18411" />
+
 
 ---
 
@@ -18,10 +20,12 @@ Images of the blank PCB before any components were soldered.
 Images of the assembled PCB after soldering and testing.
 
 **Front:**
-<img src="images/AssembledPCB_FRONT.jpeg" alt="Assembled PCB Front" width="800"/>
+<img width="2049" height="1537" alt="AssembledPCB_FRONT" src="https://github.com/user-attachments/assets/4f69159b-d4cd-40c9-9110-ba0583688c07" />
+
 
 **Back:**
-<img src="images/AssembledPCB_BACK.jpeg" alt="Assembled PCB Back" width="800"/>
+<img width="2157" height="1618" alt="AssembledPCB_BACK" src="https://github.com/user-attachments/assets/0b5e379b-2e75-4b50-b548-9bf215fe7df0" />
+
 
 ---
 
