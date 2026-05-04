@@ -14,5 +14,5 @@ normal operating conditions.
 
 ### Power Budget Spreadsheet
 - Power Budget (.xlsx): [Download Here](https://github.com/user-attachments/files/27375116/PowerBudget_TD.xlsx)
-- PDF of the Power Budget (.PDF): [PowerBudget_TDesanti.pdf](https://github.com/user-attachments/files/27375149/PowerBudget_TDesanti.pdf)
+- PDF of the Power Budget (.PDF): [Download Here](https://github.com/user-attachments/files/27375149/PowerBudget_TDesanti.pdf)
 
