@@ -16,7 +16,8 @@ When a valid packet is received, the message body is checked for motor commands 
 ## 2. Team Communication Chain
 
 ```
-Rylee (W) → Bryce (B) → Tim (T) → Riley (F) → Hattie (H)
+Rylee (W) → Tim (T) → Bryce (B) → Riley (F) → Hattie (H)
+
 ```
 
 | ID | Name   |
@@ -108,7 +109,7 @@ Single ASCII character identifying the destination node. Use `X` for broadcast.
 
 ### Packet string representation:
 ```
-AZBTFWDby
+AZBTFWDBY
 ```
 
 ---
