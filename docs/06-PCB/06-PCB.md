@@ -29,8 +29,20 @@ Images of the assembled PCB after soldering and testing.
 
 ---
 
-### PCB Design from ECAD
-Front and back images of the final PCB design from ECAD.
+### PCB Copper Layers 
+Top and Bottom Copper layers of the PCB.
+
+**Front:**
+<img width="1464" height="1064" alt="PCB_TopCopperLayer" src="https://github.com/user-attachments/assets/e0c05114-344a-46c7-8eb0-c7fb1c3defda" />
+
+**Back:**
+<img width="1466" height="1008" alt="PCB_BottomCopperLayer" src="https://github.com/user-attachments/assets/45cb745a-5a14-49f1-ba96-f6412a3ba001" />
+
+
+---
+
+### PCB Design ECAD
+Front and back images of the final PCB design ECAD.
 
 **Front:**
 <img width="1812" height="1122" alt="eCAD_PCB_Front" src="https://github.com/user-attachments/assets/1481420e-4f34-4fbe-a44c-e4a3fc953e96" />
@@ -43,6 +55,6 @@ Front and back images of the final PCB design from ECAD.
 ---
 
 ### Project Files
-- ECAD Project (.zip): [Download Here](https://github.com/user-attachments/files/25831410/TimDesanti301.zip)
+- Project (.zip): 
 - Gerber Files (.zip): [Download Here](https://github.com/user-attachments/files/25831242/SMT314-ALL.zip)
 
