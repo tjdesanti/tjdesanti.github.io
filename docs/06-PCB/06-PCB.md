@@ -29,11 +29,16 @@ Images of the assembled PCB after soldering and testing.
 
 ---
 
-### PCB Design (ECAD)
+### PCB Design from ECAD
 Front and back images of the final PCB design from ECAD.
 
-<img width="1338" height="1012" alt="ECAD PCB Top Layer" src="https://github.com/user-attachments/assets/2a862888-ae73-44e8-bdac-010beb8ef0a3" />
-<img width="1390" height="1034" alt="ECAD PCB Bottom Layer" src="https://github.com/user-attachments/assets/a38373ed-6500-4659-8f94-7ffb361c6d99" />
+**Front:**
+<img width="1812" height="1122" alt="eCAD_PCB_Front" src="https://github.com/user-attachments/assets/1481420e-4f34-4fbe-a44c-e4a3fc953e96" />
+
+
+**Back:**
+<img width="1776" height="1172" alt="eCAD_PCB_Back" src="https://github.com/user-attachments/assets/310411ac-7c84-469d-8198-42dcbc7214ea" />
+
 
 ---
 
