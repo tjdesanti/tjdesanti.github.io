@@ -1158,13 +1158,258 @@ It handles all communication between subsystems, including sensor data collectio
 and wireless data transmission via MQTT. The code is structured into modular components for 
 readability and maintainability.</p>
 <h3 id="code-overview">Code Overview</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">UART</span><span class="p">,</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">SPI</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># IDs</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">MY_ID</span>        <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
+<span class="n">BROADCAST_ID</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'X'</span><span class="p">)</span>
+
+<span class="n">KNOWN_IDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'W'</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'B'</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'F'</span><span class="p">),</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'T'</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'H'</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'X'</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">ID_NAMES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'W'</span><span class="p">):</span> <span class="s1">'Rylee'</span><span class="p">,</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'B'</span><span class="p">):</span> <span class="s1">'Bryce'</span><span class="p">,</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'F'</span><span class="p">):</span> <span class="s1">'Riley'</span><span class="p">,</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'T'</span><span class="p">):</span> <span class="s1">'Tim'</span><span class="p">,</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'H'</span><span class="p">):</span> <span class="s1">'Hattie'</span><span class="p">,</span>
+    <span class="nb">ord</span><span class="p">(</span><span class="s1">'X'</span><span class="p">):</span> <span class="s1">'Everyone'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># UART Setup</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">uart</span> <span class="o">=</span> <span class="n">UART</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9600</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="mi">43</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="n">uart</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="mi">9600</span><span class="p">,</span> <span class="n">bits</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">parity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># LED</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Motor / SPI Setup</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">spi</span> <span class="o">=</span> <span class="n">SPI</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">,</span> <span class="n">polarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">sck</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">mosi</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">miso</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">cs</span>      <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dis</span>     <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span>  <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pwm_pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dir_pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Motor State</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">MOTOR_STOP</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">MOTOR_FWD</span>  <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MOTOR_REV</span>  <span class="o">=</span> <span class="mi">2</span>
+<span class="n">motor_state</span> <span class="o">=</span> <span class="n">MOTOR_STOP</span>
+
+<span class="k">def</span> <span class="nf">apply_motor_state</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">motor_state</span>
+    <span class="n">motor_state</span> <span class="o">=</span> <span class="n">state</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">MOTOR_FWD</span><span class="p">:</span>
+        <span class="n">pwm_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">dis</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">dir_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">dis</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">pwm_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">led</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Motor: FORWARD"</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">MOTOR_REV</span><span class="p">:</span>
+        <span class="n">pwm_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">dis</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">dir_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">dis</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">pwm_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">led</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Motor: REVERSE"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pwm_pin</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">dis</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">led</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Motor: STOP"</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Debug Button (Pin 13) — cycles STOP -&gt; FWD -&gt; REV</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">debug_btn</span>      <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">last_btn_state</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">last_press_ms</span>  <span class="o">=</span> <span class="mi">0</span>
+<span class="n">DEBOUNCE_MS</span>    <span class="o">=</span> <span class="mi">50</span>
+<span class="n">CYCLE</span> <span class="o">=</span> <span class="p">[</span><span class="n">MOTOR_STOP</span><span class="p">,</span> <span class="n">MOTOR_FWD</span><span class="p">,</span> <span class="n">MOTOR_REV</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">poll_debug_button</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">last_btn_state</span><span class="p">,</span> <span class="n">last_press_ms</span>
+    <span class="n">now</span>   <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">()</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">debug_btn</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">last_btn_state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_diff</span><span class="p">(</span><span class="n">now</span><span class="p">,</span> <span class="n">last_press_ms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DEBOUNCE_MS</span><span class="p">:</span>
+            <span class="n">last_press_ms</span> <span class="o">=</span> <span class="n">now</span>
+            <span class="n">next_state</span> <span class="o">=</span> <span class="n">CYCLE</span><span class="p">[(</span><span class="n">motor_state</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">CYCLE</span><span class="p">)]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"BTN:"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"STOP"</span><span class="p">,</span><span class="s2">"FWD"</span><span class="p">,</span><span class="s2">"REV"</span><span class="p">][</span><span class="n">next_state</span><span class="p">])</span>
+            <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+    <span class="n">last_btn_state</span> <span class="o">=</span> <span class="n">state</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Failsafe (BOOT = Pin 0)</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">boot_btn</span>        <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span>
+<span class="n">boot_hold_start</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">safe_exit</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_STOP</span><span class="p">)</span>
+    <span class="n">led</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">SystemExit</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">boot_btn</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">safe_exit</span><span class="p">(</span><span class="s2">"SAFE MODE: BOOT held at startup"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">poll_failsafe</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">boot_hold_start</span>
+    <span class="k">if</span> <span class="n">boot_btn</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">boot_hold_start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">boot_hold_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_diff</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">(),</span> <span class="n">boot_hold_start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1500</span><span class="p">:</span>
+            <span class="n">safe_exit</span><span class="p">(</span><span class="s2">"SAFE MODE: BOOT held during runtime"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">boot_hold_start</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Packet Constants</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">PREFIX</span>     <span class="o">=</span> <span class="sa">b</span><span class="s1">'AZ'</span>
+<span class="n">SUFFIX</span>     <span class="o">=</span> <span class="sa">b</span><span class="s1">'BY'</span>
+<span class="n">FRAME_SIZE</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">MSG_START</span>  <span class="o">=</span> <span class="mi">4</span>
+<span class="n">MSG_END</span>    <span class="o">=</span> <span class="mi">62</span>
+
+<span class="k">def</span> <span class="nf">build_packet</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">FRAME_SIZE</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="o">=</span> <span class="n">PREFIX</span>
+    <span class="n">frame</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="o">=</span> <span class="n">MY_ID</span>
+    <span class="n">frame</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="o">=</span> <span class="n">dst</span>
+    <span class="n">msg_bytes</span>   <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)[:</span><span class="n">MSG_END</span> <span class="o">-</span> <span class="n">MSG_START</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">[</span><span class="n">MSG_START</span><span class="p">:</span><span class="n">MSG_START</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg_bytes</span><span class="p">)]</span> <span class="o">=</span> <span class="n">msg_bytes</span>
+    <span class="n">frame</span><span class="p">[</span><span class="mi">62</span><span class="p">:</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">SUFFIX</span>
+    <span class="k">return</span> <span class="n">frame</span>
+
+<span class="k">def</span> <span class="nf">extract_message</span><span class="p">(</span><span class="n">pkt</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pkt</span><span class="p">[</span><span class="n">MSG_START</span><span class="p">:</span><span class="n">MSG_END</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s1">'</span><span class="se">\x00</span><span class="s1">'</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">,</span> <span class="s1">'ignore'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">packet_to_string</span><span class="p">(</span><span class="n">pkt</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">"AZ"</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pkt</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">pkt</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="n">extract_message</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"BY"</span>
+
+<span class="k">def</span> <span class="nf">send_ack</span><span class="p">(</span><span class="n">dst</span><span class="p">):</span>
+    <span class="n">pkt</span> <span class="o">=</span> <span class="n">build_packet</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s2">"ACK"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt; Sending ACK to"</span><span class="p">,</span> <span class="n">ID_NAMES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">dst</span><span class="p">)))</span>
+    <span class="n">uart</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Handle Incoming Packet</span>
+<span class="c1"># ==============================================================</span>
+<span class="k">def</span> <span class="nf">handle_packet</span><span class="p">(</span><span class="n">pkt</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PREFIX</span> <span class="ow">or</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">62</span><span class="p">:</span><span class="mi">64</span><span class="p">]</span> <span class="o">!=</span> <span class="n">SUFFIX</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"ERROR: Malformed packet — discarded"</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">src</span>      <span class="o">=</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">dst</span>      <span class="o">=</span> <span class="n">pkt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">msg</span>      <span class="o">=</span> <span class="n">extract_message</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+    <span class="n">body</span>     <span class="o">=</span> <span class="n">pkt</span><span class="p">[</span><span class="n">MSG_START</span><span class="p">:</span><span class="n">MSG_END</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s1">'</span><span class="se">\x00</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">src_name</span> <span class="o">=</span> <span class="n">ID_NAMES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+    <span class="n">dst_name</span> <span class="o">=</span> <span class="n">ID_NAMES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"SRC:"</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="s2">"DST:"</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Packet string:"</span><span class="p">,</span> <span class="n">packet_to_string</span><span class="p">(</span><span class="n">pkt</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">src</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">KNOWN_IDS</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"ERROR: Unknown sender '</span><span class="si">{}</span><span class="s2">' — discarded"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">src</span><span class="p">)))</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">src</span> <span class="o">==</span> <span class="n">MY_ID</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Dropped own message (loop prevention)"</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">dst</span> <span class="o">==</span> <span class="n">MY_ID</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt; Message FOR ME (Tim) from </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">src_name</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt; Content: '</span><span class="si">{}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="n">led</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">send_ack</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'FWD'</span><span class="p">:</span>
+            <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_FWD</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'REV'</span><span class="p">:</span>
+            <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_REV</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'STOP'</span><span class="p">:</span>
+            <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_STOP</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"&gt;&gt; Unknown command '</span><span class="si">{}</span><span class="s2">' — motor unchanged"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">dst</span> <span class="o">==</span> <span class="n">BROADCAST_ID</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Broadcast from </span><span class="si">{}</span><span class="s2">: '</span><span class="si">{}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">src_name</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'FWD'</span><span class="p">:</span>    <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_FWD</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'REV'</span><span class="p">:</span>  <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_REV</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">body</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">'STOP'</span><span class="p">:</span> <span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_STOP</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Forwarding broadcast..."</span><span class="p">)</span>
+        <span class="n">uart</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Forwarding: </span><span class="si">{}</span><span class="s2"> -&gt; </span><span class="si">{}</span><span class="s2">: '</span><span class="si">{}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">src_name</span><span class="p">,</span> <span class="n">dst_name</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+    <span class="n">uart</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Buffer</span>
+<span class="c1"># ==============================================================</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Startup</span>
+<span class="c1"># ==============================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Tim (T) — Motor Node Ready"</span><span class="p">)</span>
+<span class="n">apply_motor_state</span><span class="p">(</span><span class="n">MOTOR_STOP</span><span class="p">)</span>
+
+<span class="c1"># ==============================================================</span>
+<span class="c1"># Main Loop</span>
+<span class="c1"># ==============================================================</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">poll_failsafe</span><span class="p">()</span>
+    <span class="n">poll_debug_button</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">uart</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">uart</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">uart</span><span class="o">.</span><span class="n">any</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"RAW RX bytes:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">buffer</span> <span class="o">+=</span> <span class="n">data</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="n">PREFIX</span><span class="p">:</span>
+            <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">FRAME_SIZE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">PREFIX</span> <span class="ow">and</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">62</span><span class="p">:</span><span class="mi">64</span><span class="p">]</span> <span class="o">==</span> <span class="n">SUFFIX</span><span class="p">:</span>
+                <span class="n">handle_packet</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">buffer</span><span class="p">[:</span><span class="n">FRAME_SIZE</span><span class="p">]))</span>
+                <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">FRAME_SIZE</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">FRAME_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"ERROR: Buffer overflow — cleared"</span><span class="p">)</span>
+            <span class="n">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="final-code-pdf">Final Code (PDF)</h3>
 <ul>
-<li>Code PDF: <a href="https://github.com/user-attachments/files/XXXXXXX/Code.pdf">Download Here</a></li>
+<li>Code PDF: <a href="https://github.com/user-attachments/files/27375853/MotorDrive_PythonCode.pdf">Download Here</a></li>
 </ul>
 <h3 id="final-code-project-zip">Final Code Project (.zip)</h3>
 <ul>
-<li>Code Project (.zip): <a href="https://github.com/user-attachments/files/XXXXXXX/Code.zip">Download Here</a></li>
+<li>Code Project (.zip): <a href="https://github.com/user-attachments/files/27375816/EGR314_Thonny_Motor.zip">Download Here</a></li>
 </ul>
 
 
