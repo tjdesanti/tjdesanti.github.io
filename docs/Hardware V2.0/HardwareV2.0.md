@@ -19,7 +19,7 @@ in a much cleaner and more reliable PCB.
 
 **2. Button Pull-Up Resistors**
 
-The current design uses capacitors to pull down the buttons, which required the use of 
+The current design uses capacitors to pull down the buttons, which requires the use of 
 an external solder breadboard to compensate. In Version 2.0, pull-up resistors would be 
 used instead, allowing the buttons to function correctly directly on the PCB without any 
 additional external components or workarounds.
