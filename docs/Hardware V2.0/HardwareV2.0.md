@@ -48,6 +48,7 @@ all pins are accessible from the top side of the board, improving ease of assemb
 and connection reliability.
 
 **6. Additional Test Points and Through-Holes**
+
 Extra test points and through-holes would be added at each component port in the next 
 revision. If a trace ever needs to be cut during debugging, these test points would 
 allow for quick jumper wire connections without having to solder wires directly onto 
