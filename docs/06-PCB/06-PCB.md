@@ -55,6 +55,7 @@ Front and back images of the final PCB design ECAD.
 ---
 
 ### Project Files
-- Project (.zip): 
+- Project (.zip): [Download Here](https://github.com/user-attachments/files/27373851/MotorContorller_EGR314.zip)
+
 - Gerber Files (.zip): [Download Here](https://github.com/user-attachments/files/25831242/SMT314-ALL.zip)
 
