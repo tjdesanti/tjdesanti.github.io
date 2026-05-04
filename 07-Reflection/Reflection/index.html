@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#review-of-modules-sucess" class="md-skip">
+        <a href="#reflection" class="md-skip">
           Skip to content
         </a>
       
@@ -944,20 +944,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#review-of-modules-sucess" class="md-nav__link">
+  <a href="#reflection" class="md-nav__link">
     <span class="md-ellipsis">
-      Review of Module's Sucess
+      Reflection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#review-of-modules-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review of Module's Success
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#version-20" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#microcontrollermodule-startup-tips" class="md-nav__link">
     <span class="md-ellipsis">
-      Version 2.0
+      Microcontroller/Module Startup Tips
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1214,20 +1229,35 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#review-of-modules-sucess" class="md-nav__link">
+  <a href="#reflection" class="md-nav__link">
     <span class="md-ellipsis">
-      Review of Module's Sucess
+      Reflection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reflection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#review-of-modules-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review of Module's Success
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#version-20" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#microcontrollermodule-startup-tips" class="md-nav__link">
     <span class="md-ellipsis">
-      Version 2.0
+      Microcontroller/Module Startup Tips
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1274,19 +1304,85 @@
 
   <h1>Reflection</h1>
 
-<h2 id="review-of-modules-sucess">Review of Module's Sucess</h2>
-<p>dfgh</p>
-<h2 id="version-20">Version 2.0</h2>
-<p>dfghj</p>
+<h2 id="reflection">Reflection</h2>
+<h3 id="review-of-modules-success">Review of Module's Success</h3>
+<p><strong>Requirements Accomplished:</strong></p>
+<p>The following module requirements were accomplished during the course of this project:</p>
+<ul>
+<li>
+<p><strong>Motor Direction Control:</strong> Successfully implemented bidirectional motor control that 
+responds to multiple input sources. The motor was able to change directions based on 
+pressing the debugging button on the board, as well as receiving information through 
+message compliance from a teammate's subsystem via the communication protocol.</p>
+</li>
+<li>
+<p><strong>Pinout Corrections:</strong> Successfully identified and corrected pinout issues on several 
+components. Pins on the ESP32 that were originally connected to functions they were not 
+capable of running were rerouted, including the micro USB port, the enable/boot buttons, 
+and the SPI pins for the motor controller. This required cutting traces and soldering 
+jumper wires directly to the board to fix the connections.</p>
+</li>
+</ul>
+<p><strong>Requirements Struggled With:</strong></p>
+<ul>
+<li>
+<p><strong>ESP32 SPI Pinout:</strong> Ensuring the correct SPI-capable pins were used on the ESP32 for 
+Communication with the motor driver was one of the most challenging aspects of the project. 
+This was not caught until testing, which required physical trace cuts and wire modifications 
+to resolve.</p>
+</li>
+<li>
+<p><strong>Soldering Fixes:</strong> Soldering wires onto existing traces and physical component leads to 
+correct routing errors proved to be tedious and difficult, reinforcing the importance of 
+thorough pinout verification before PCB fabrication.</p>
+</li>
+</ul>
+<hr>
+<h3 id="microcontrollermodule-startup-tips">Microcontroller/Module Startup Tips</h3>
+<p>The following is a list of tips and advice based on lessons learned during the startup and 
+debugging phases of this project. These are things that would have saved significant time 
+and effort if followed from the beginning:</p>
+<ol>
+<li>
+<p><strong>Always double-check datasheets and pinouts before routing your PCB.</strong> Many issues 
+encountered in this project stemmed from pins being assigned to functions the ESP32 was 
+not capable of running. Verify every pin's capabilities against the datasheet before 
+finalizing your schematic.</p>
+</li>
+<li>
+<p><strong>Add extra test points and through-holes connected to each component.</strong> Having dedicated 
+test points at every major component port makes debugging significantly easier. If a trace 
+needs to be cut, a nearby through-hole allows for a quick jumper wire fix instead of 
+soldering directly onto a component lead.</p>
+</li>
+<li>
+<p><strong>Always use pull-up resistors on buttons.</strong> Using capacitors to pull buttons down 
+created issues that required an external solder breadboard to fix. Pull-up resistors are 
+the cleaner and more reliable solution and should be the default approach.</p>
+</li>
+<li>
+<p><strong>Separate the power connection of ribbon cable connectors from the main power trace 
+using a jumper.</strong> This reduces the risk of accidentally shorting the board when connecting 
+or disconnecting ribbon cables and gives you more control over power distribution during 
+testing.</p>
+</li>
+<li>
+<p><strong>Invest time early in understanding power conversion.</strong> A better understanding of 
+Voltage regulation and current limiting from the start would have allowed more power to 
+be safely distributed to teammates' boards without the risk of overloading components 
+on your own board. Consider adding a current regulator in the initial design rather than 
+as an afterthought.</p>
+</li>
+</ol>
 <h2 id="lessons-learned">Lessons Learned</h2>
 <ol>
-<li>Double check pinouts for each microcontroller since not every variant of the esp32 has the same pinouts.</li>
+<li>Double-check pinouts for each microcontroller, since not every variant of the ESP32 has the same pinouts.</li>
 <li>resisotrs --&gt; power, capacitors --&gt; ground.</li>
 </ol>
 <h2 id="recommendations-for-future-students">Recommendations for Future Students</h2>
 <ol>
-<li>If you are not ahead you are behind.</li>
-<li>Start working on the physical project once pcbs are ordered.</li>
+<li>If you are not ahead, you are behind.</li>
+<li>Start working on the physical project once PCBs are ordered.</li>
 <li>Spend more time and always ask for help.</li>
 </ol>
 
